@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">My budgetapp</string>
+    <string name="budget_items">Шаблоны трат/пополнений</string>
+    <string name="error_retry">Повторить</string>
+    <string name="error_message">Не удалось загрузить данные</string>
+    <string name="add_new_item">Add new item</string>
+    <string name="name">Наименование</string>
+    <string name="category">Категория</string>
+    <string name="save">Сохранить</string>
+    <string name="delete_title_dialog">Удалить элемент</string>
+    <string name="delete_message_dialog">Вы уверены, что хотите удалить элемент?</string>
+    <string name="delete_button_dialog">Delete</string>
+    <string name="cancel_button_dialog">Cancel</string>
+</resources>
