@@ -3,9 +3,10 @@ package ru.tpu.budgetapp.ui
 import android.os.Parcel
 import android.os.Parcelable
 import ru.tpu.budgetapp.api.budget.BudgetItemDto
+import ru.tpu.budgetapp.ui.adapter.IUnitWithId
 
-class UiBudgetItem(): Parcelable {
-    var id: Int = -1
+class UiBudgetItem(): Parcelable, IUnitWithId {
+    override var id: Int = -1
     var title: String = ""
     var category: UiCategory = UiCategory()
 

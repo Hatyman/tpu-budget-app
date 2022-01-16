@@ -1,17 +1,15 @@
 package ru.tpu.budgetapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import ru.tpu.budgetapp.databinding.ActivityBudgetItemsListBinding
+import androidx.appcompat.app.AppCompatActivity
 import ru.tpu.budgetapp.databinding.ActivityCreateBudgetItemBinding
 import ru.tpu.budgetapp.ui.UiBudgetItem
 import ru.tpu.budgetapp.ui.UiCategory
-import ru.tpu.budgetapp.ui.adapter.BudgetItemAdapter
 import ru.tpu.budgetapp.ui.adapter.CategorySpinnerAdapter
 
 class CreateBudgetItemActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {

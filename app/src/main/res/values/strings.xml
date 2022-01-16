@@ -11,4 +11,8 @@
     <string name="delete_message_dialog">Вы уверены, что хотите удалить элемент?</string>
     <string name="delete_button_dialog">Delete</string>
     <string name="cancel_button_dialog">Cancel</string>
+    <string name="accuracy_1_d">Accuracy: %1$d</string>
+    <string name="no_items">Ничего не найдено</string>
+    <string name="budget_planning">Планирование бюджета</string>
+    <string name="budget_operations">Изменения бюджета</string>
 </resources>

@@ -3,10 +3,11 @@ package ru.tpu.budgetapp.ui
 import android.os.Parcel
 import android.os.Parcelable
 import ru.tpu.budgetapp.api.plan.PlanDto
+import ru.tpu.budgetapp.ui.adapter.IUnitWithId
 import java.time.LocalDate
 
-class UiPlan() : Parcelable {
-    var id: Int = -1
+class UiPlan() : Parcelable, IUnitWithId {
+    override var id: Int = -1
     var startDate: LocalDate = LocalDate.now()
     var accuracy: Double = 0.0
     var endDate: LocalDate = LocalDate.now()
@@ -20,9 +21,9 @@ class UiPlan() : Parcelable {
 
     constructor(dto: PlanDto) : this() {
         id = dto.id
-        startDate = dto.startDate
+        startDate = LocalDate.parse(dto.startDate)
         accuracy = dto.accuracy
-        endDate = dto.endDate
+        endDate = LocalDate.parse(dto.endDate)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

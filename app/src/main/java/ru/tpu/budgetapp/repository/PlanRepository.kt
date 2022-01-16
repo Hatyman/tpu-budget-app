@@ -23,7 +23,7 @@ class PlanRepository(
     @WorkerThread
     fun createNewPlan(startDate: LocalDate): UiPlan {
         val data =
-            planApi.createNewPlan(CreatePlanRequestDto(startDate)).execute().body()!!.data
+            planApi.createNewPlan(CreatePlanRequestDto(startDate.toString())).execute().body()!!.data
 
         return UiPlan(data)
     }

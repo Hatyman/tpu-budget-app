@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyBudgetapp">
         <activity
+            android:name=".PlansListActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateBudgetItemActivity"
             android:exported="false" />
         <activity

@@ -1,8 +1,8 @@
 package ru.tpu.budgetapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import ru.tpu.budgetapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +15,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.itemsButton.setOnClickListener {
-            val intent = Intent(this, BudgetItemsListActivity::class.java)
-            startActivity(intent)
+            navigateToScreen(BudgetItemsListActivity::class.java)
+        }
+
+        binding.plansButton.setOnClickListener {
+            navigateToScreen(PlansListActivity::class.java)
         }
     }
-}
+
+    private fun navigateToScreen(cls: Class<*>): Unit {
+        val intent = Intent(this, cls)
+        startActivity(intent)
+    }
+ }
