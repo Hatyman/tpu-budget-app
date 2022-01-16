@@ -17,12 +17,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:src="@drawable/baseline_add_20"
-        android:tint="@android:color/primary_text_dark_nodisable"
+        android:tint="?colorOnPrimary"
         android:layout_margin="16dp"
         android:contentDescription="@string/add_new_item" />
 
     <FrameLayout
-        android:id="@+id/loading_container"
+        android:id="@+id/indication_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent">

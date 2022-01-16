@@ -51,11 +51,12 @@ class CreateBudgetItemActivity : AppCompatActivity(), AdapterView.OnItemSelected
             return true
         }
         if (item.itemId == R.id.action_save) {
-            if (selectedCategory == null) {
-                return false
-            }
             newItem.title = binding.title.text.toString()
             newItem.category = selectedCategory as UiCategory
+
+            if (newItem.title.isBlank() || selectedCategory == null) {
+                return false
+            }
 
             val intent = Intent()
             intent.putExtra("budgetItem", newItem)

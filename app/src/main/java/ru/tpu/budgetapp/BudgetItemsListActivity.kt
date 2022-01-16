@@ -30,26 +30,20 @@ import java.util.logging.Logger
 
 class BudgetItemsListActivity : AppCompatActivity(),
     PresenterLoadIndicationWidget<BudgetItemsDataType> {
-    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            // There are no request codes
-            val data: Intent? = result.data!!
-            val item = data?.getParcelableExtra<UiBudgetItem>("budgetItem")
+    private val resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data!!
+                val item = data?.getParcelableExtra<UiBudgetItem>("budgetItem")
 
-            if (item != null) {
-                lifecycle.coroutineScope.launch(Dispatchers.IO) {
-                    try {
-                        val createdItem = budgetRepository.createNewItem(item.title, item.category.id)
-                        MainScope().launch {
-                            adapter.addItem(createdItem)
-                        }
-                    } catch (e: Exception) {
+                if (item != null) {
+                    presenter.doJobAndReloadData {
+                        budgetRepository.createNewItem(item.title, item.category.id)
                     }
                 }
-            }
 
+            }
         }
-    }
 
     private val budgetRepository: BudgetRepository = App.scope.budgetRepository
 
@@ -79,7 +73,7 @@ class BudgetItemsListActivity : AppCompatActivity(),
         binding.list.setOnItemLongClickListener { parent, view, position, id ->
             showDeleteDialog(position)
         }
-        
+
         _presenter = BudgetItemsPresenter(lifecycle, this)
 
         binding.errorRetry.setOnClickListener {
@@ -101,13 +95,13 @@ class BudgetItemsListActivity : AppCompatActivity(),
     }
 
     override fun showLoading() {
-        binding.loadingContainer.visibility = View.VISIBLE
+        binding.indicationContainer.visibility = View.VISIBLE
         binding.loading.visibility = View.VISIBLE
         binding.errorContainer.visibility = View.GONE
     }
 
     override fun showLoaded(data: BudgetItemsDataType) {
-        binding.loadingContainer.visibility = View.GONE
+        hideLoading()
 
         adapter.setItems(data.toMutableList())
 
@@ -115,28 +109,25 @@ class BudgetItemsListActivity : AppCompatActivity(),
     }
 
     override fun showFailed() {
-        binding.loadingContainer.visibility = View.VISIBLE
+        binding.indicationContainer.visibility = View.VISIBLE
         binding.loading.visibility = View.GONE
         binding.errorContainer.visibility = View.VISIBLE
     }
 
     private fun showDeleteDialog(position: Int): Boolean {
-        Log.i("position", position.toString())
         val func = {
-            lifecycle.coroutineScope.launch(Dispatchers.IO) {
-                try {
-                    val item = adapter.getItem(position)
-                    budgetRepository.deleteItem(item.id)
-                    MainScope().launch {
-                        adapter.deleteItemOnPosition(position)
-                    }
-                } catch (e: Exception) {
-                    throw NetworkErrorException("Error caused on budget item deletion")
-                }
+            presenter.doJobAndReloadData {
+                val item = adapter.getItem(position)
+                budgetRepository.deleteItem(item.id)
             }
         }
         val dialog = DeletionDialogFragment(func)
         dialog.show(supportFragmentManager, "deletion-dialog")
         return true
+    }
+
+    override fun hideLoading() {
+        binding.indicationContainer.visibility = View.GONE
+        binding.loading.visibility = View.GONE
     }
 }

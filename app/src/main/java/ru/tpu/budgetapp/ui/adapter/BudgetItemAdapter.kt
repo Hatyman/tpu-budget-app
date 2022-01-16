@@ -1,22 +1,19 @@
 package ru.tpu.budgetapp.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.TextView
 import ru.tpu.budgetapp.R
 import ru.tpu.budgetapp.databinding.ListviewLayoutBudgetItemBinding
-import ru.tpu.budgetapp.presenter.BudgetItemsDataType
 import ru.tpu.budgetapp.ui.UiBudgetItem
 
 class BudgetItemAdapter(private val context: Context, private var budgetItems: MutableList<UiBudgetItem> = mutableListOf()) :
     BaseAdapter() {
     var inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    lateinit var binding: ListviewLayoutBudgetItemBinding
-
     override fun getCount(): Int {
         return budgetItems.size
     }
@@ -32,22 +29,25 @@ class BudgetItemAdapter(private val context: Context, private var budgetItems: M
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView
         if (view == null) {
-            binding = ListviewLayoutBudgetItemBinding.inflate(inflater, parent, false)
-            view = binding.root
+            view = ListviewLayoutBudgetItemBinding.inflate(inflater, parent, false).root
         }
 
         val item = getItem(position)
 
-        Log.d("getView", item.title)
-
-        binding.title.text = item.title
-        binding.category.text = item.category.title
-        binding.border.setBackgroundColor(
-            context.resources.getColor(
-                if (item.category.isIncome) R.color.income else R.color.fee,
-                context.theme
+        view.findViewById<TextView>(R.id.title).also {
+            it.text = item.title
+        }
+        view.findViewById<TextView>(R.id.category).also {
+            it.text = item.category.title
+        }
+        view.findViewById<View>(R.id.border).also {
+            it.setBackgroundColor(
+                context.resources.getColor(
+                    if (item.category.isIncome) R.color.income else R.color.fee,
+                    context.theme
+                )
             )
-        )
+        }
 
         return view
     }

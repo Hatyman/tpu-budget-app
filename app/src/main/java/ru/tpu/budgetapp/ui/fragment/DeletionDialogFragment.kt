@@ -9,7 +9,7 @@ import kotlinx.coroutines.Job
 import ru.tpu.budgetapp.R
 
 class DeletionDialogFragment(
-    private val deleteItem: () -> Job
+    private val deleteItem: () -> Unit
 ) : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
